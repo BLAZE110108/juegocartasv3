@@ -2,9 +2,10 @@ import { useContext, useEffect, useState } from "react";
 import CartasContex from "../context/CartasContext";
 import Carta from "./Carta";
 import Grid from "@mui/material/Grid";
+import Analisis from "../Helppers/Analisis";
 
 const Cartas = () => {
-    const { cartas } = useContext(CartasContex);
+  const { cartas } = useContext(CartasContex);
 
   //console.log(cartas);
 
@@ -14,9 +15,11 @@ const Cartas = () => {
   // }, []);
 
 
+
   return (
     <>
       
+      {Analisis(cartas.cards)}
       <Grid
         container
         spacing={{ xs: 2, md: 2 }}
@@ -30,6 +33,9 @@ const Cartas = () => {
             ))
           : `usaurio_id: ${cartas.deck_id} No hay cartas disponibles.`}
       </Grid>
+      <div id="restantes">
+        <p>Cartas Restantes: {cartas.remaining}</p>
+      </div>
     </>
   );
 };

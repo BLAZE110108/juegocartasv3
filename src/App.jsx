@@ -20,12 +20,12 @@ function App() {
     <>
       <BrowserRouter>
         <UserProvider>
-        <CartasProvider>
+        
             <Routes>
               <Route path="/" element={<Login />} />
               <Route path="/Cardgame" element={<Cardgame />} />
             </Routes>
-            </CartasProvider>
+            
         </UserProvider>
       </BrowserRouter>
     </>

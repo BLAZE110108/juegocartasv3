@@ -2,11 +2,9 @@ import { useContext, useState } from "react";
 import UserContext from "../context/UserContext";
 import CartasContex, { CartasProvider } from "../context/CartasContext";
 import Cartas from "../componentes/Cartas";
-
+import { Button, CardActionArea, CardActions } from "@mui/material";
 const Cardgame = () => {
   const { user1, user2 } = useContext(UserContext);
-
-  const [newCartas, setNewCartas] = useState([]);
 
   const deck = [
     { userid: 1, name: user1 },
@@ -15,16 +13,19 @@ const Cardgame = () => {
 
   return (
     <>
-    {/* <div id="restantes">
-        <p>Cartas Restantes: {cartas.remaining}</p>
-      </div> */}
-      {deck.map((usr, index) => (
-        <div key={index}>
+      <Button variant="outlined" >
+          Carta
+          </Button>
+      <br />
+      <br />
+      <br />
+      {deck.map((usr) => (
+        <div key={usr.userid}>
           {console.log(usr.userid)}
-          <div> Jugador {usr.deckid} - {usr.name}</div>
-         
+          <div> Jugador {usr.userid} - {usr.name}</div>
+          <CartasProvider>
             <Cartas />
-          
+          </CartasProvider>
           <br />
         </div>
       ))}
