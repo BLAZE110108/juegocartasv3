@@ -25,7 +25,7 @@ function App() {
               <Route path="/" element={<Login />} />
               <Route path="/Cardgame" element={<Cardgame />} />
             </Routes>
-          </CartasProvider>
+            </CartasProvider>
         </UserProvider>
       </BrowserRouter>
     </>

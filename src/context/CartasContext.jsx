@@ -6,11 +6,10 @@ const CartasContex = createContext();
 
 const CartasProvider = ({ children }) => {
   //const [cartas, setCartas] = useState([]);
-
   const [pj1, setPJ1] = useState([]);
   const [pj2, setPJ2] = useState([]);
   const [deckInfo, setDeckInfo] = useState([]);
-
+  
   useEffect(() => {
     const query = async () => {
       const url = `https://deckofcardsapi.com/api/deck/d5uxxiuq955i/draw/?count=10`;
@@ -40,7 +39,7 @@ const CartasProvider = ({ children }) => {
       setPJ2(tempj2);
     };
     query();
-  }, []);
+  }, [1]);
 
   return (
     <CartasContex.Provider value={{ deckInfo, pj1, pj2, setPJ1, setPJ2, setDeckInfo }}>

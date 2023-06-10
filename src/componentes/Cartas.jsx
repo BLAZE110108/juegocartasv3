@@ -3,15 +3,21 @@ import CartasContex from "../context/CartasContext";
 import Carta from "./Carta";
 import Grid from "@mui/material/Grid";
 import Analisis from "../Helppers/Analisis";
+import { CartasProvider } from "../context/CartasContext";
+
 
 const Cartas = ({cartas, deckInfo}) => {
   
   // const { deckInfo } = useContext(CartasContex);
+  // const [terna1, setTerna1] = useState([]);
+  // const [terna2, setTerna2] = useState([]);
+  // const [cuarta, setCuarta] = useState([]);
+
 
   return (
     <>
-      
-      {Analisis(cartas.cards)}
+       
+      {Analisis({cartas})}
       <Grid
         container
         spacing={{ xs: 2, md: 2 }}
@@ -25,7 +31,7 @@ const Cartas = ({cartas, deckInfo}) => {
                 <Carta carta={carta} />
               </Grid>
             ))
-          : `usaurio_id: ${deckInfo.deck_id} No hay cartas disponibles.`}
+          : `Deck Id: ${deckInfo.deck_id} No hay cartas disponibles.`}
       </Grid>
       
     </>
