@@ -4,17 +4,9 @@ import Carta from "./Carta";
 import Grid from "@mui/material/Grid";
 import Analisis from "../Helppers/Analisis";
 
-const Cartas = () => {
-  const { cartas } = useContext(CartasContex);
-
-  //console.log(cartas);
-
-  // useEffect(() => {
-  //   setNewCartas(...newCartas, cartas);
-  //   console.log(`Ejecucion del useEffect`);
-  // }, []);
-
-
+const Cartas = ({cartas, deckInfo}) => {
+  
+  // const { deckInfo } = useContext(CartasContex);
 
   return (
     <>
@@ -25,17 +17,17 @@ const Cartas = () => {
         spacing={{ xs: 2, md: 2 }}
         columns={{ xs: 2, sm: 2, md: 10 }}
       >
-        {cartas.success
-          ? cartas.cards.map((carta, index) => (
+        {console.log(deckInfo)}
+        {console.log(cartas)}
+        {deckInfo.success
+          ? cartas.map((carta, index) => (
               <Grid item key={index}>
                 <Carta carta={carta} />
               </Grid>
             ))
-          : `usaurio_id: ${cartas.deck_id} No hay cartas disponibles.`}
+          : `usaurio_id: ${deckInfo.deck_id} No hay cartas disponibles.`}
       </Grid>
-      <div id="restantes">
-        <p>Cartas Restantes: {cartas.remaining}</p>
-      </div>
+      
     </>
   );
 };
