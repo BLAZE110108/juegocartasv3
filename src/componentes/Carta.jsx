@@ -5,7 +5,6 @@ import { CardActionArea, CardActions } from "@mui/material";
 
 
 const Carta = ({ carta }) => {
-
   return (
     <>
       <Card sx={{ maxWidth: 345 }}>

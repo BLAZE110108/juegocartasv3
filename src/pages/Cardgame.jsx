@@ -2,14 +2,21 @@ import { useContext, useState } from "react";
 import UserContext from "../context/UserContext";
 import CartasContex, { CartasProvider } from "../context/CartasContext";
 import Cartas from "../componentes/Cartas";
-import { Button, CardActionArea, CardActions } from "@mui/material";
 import Unacarta from "../Helppers/Unacarta";
+import { useNavigate } from "react-router-dom";
 
-const Cardgame = () => {
+import * as React from "react";
+import Button from "@mui/material/Button";
+import ButtonGroup from "@mui/material/ButtonGroup";
+
+const Cardgame = ({ deckid }) => {
+  const navigate = useNavigate();
   const { user1, user2 } = useContext(UserContext);
 
   const { deckInfo, pj2, pj1, setPJ1, setPJ2, setDeckInfo } =
     useContext(CartasContex);
+
+  const [runAnalisis, setRunAnalisis] = useState(false);
 
   const deck = [
     { userid: 1, name: user1 },
@@ -17,47 +24,64 @@ const Cardgame = () => {
   ];
 
   const getOneCard = () => {
-    Unacarta().then((newcarta) => {
-      // setPJ1(pj1.push(newcarta.cards[0]));
-      // setPJ2(pj2.push(newcarta.cards[1]));
+    Unacarta({ deckid }).then((newcarta) => {
       setDeckInfo({
         success: newcarta.success,
         deck_id: newcarta.deck_id,
         remaining: newcarta.remaining,
       });
-      setPJ1([...pj1, newcarta.cards[0]]);
-      setPJ2([...pj2, newcarta.cards[1]]);
-      console.log("EN el getOneCard");
-      console.log(pj2);
-      console.log(pj1);
+      console.log("Cartas restantes");
+      console.log(newcarta.remaining);
+      if (newcarta.remaining !== 0) {
+        setPJ1([...pj1, newcarta.cards[0]]);
+        setPJ2([...pj2, newcarta.cards[1]]);
+        setRunAnalisis(true);
+      }
     });
+  };
+
+  const returnToLogin = () => {
+    navigate("/");
   };
 
   return (
     <>
-      <Button variant="outlined" onClick={getOneCard}>
-        Carta
-      </Button>
+      <ButtonGroup
+        variant="contained"
+        aria-label="outlined primary button group"
+      >
+        <Button onClick={getOneCard}>Nueva Carta</Button>
+        {deckInfo.remaining === 0 ? (
+          <Button onClick={returnToLogin}>Jugamos de nuevo?</Button>
+        ) : null}
+      </ButtonGroup>
 
       <br />
       <br />
       <div id="restantes">
-        <p>Cartas Restantes: {deckInfo.remaining}</p>
+        <h4>
+          Cartas Restantes: <strong>{deckInfo.remaining}</strong>{" "}
+        </h4>
+        <h4>
+          Deck ID: <strong>{deckInfo.deck_id}</strong>{" "}
+        </h4>
       </div>
       <br />
       {deck.map((usr) => (
         <div key={usr.userid}>
-          {console.log("En el render return")}
-          {console.log(pj2)}
-          {console.log(pj1)}
-
           <div>
             {" "}
             Jugador {usr.userid} - {usr.name}
             <br />
             <br />
           </div>
-          <Cartas cartas={usr.userid === 1 ? pj1 : pj2} deckInfo={deckInfo} />
+          <Cartas
+            cartas={usr.userid === 1 ? pj1 : pj2}
+            deckInfo={deckInfo}
+            setRunAnalisis={setRunAnalisis}
+            runAnalisis={runAnalisis}
+            userid={usr.userid}
+          />
           <br />
         </div>
       ))}

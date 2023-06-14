@@ -6,10 +6,9 @@ import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import { useNavigate } from "react-router-dom";
 
+
 const Login = () => {
   const { user1, user2, setUser1, setUser2 } = useContext(UserContext);
-
-  const [IsOkUser, setIsOkUser] = useState(false);
 
   const navigate = useNavigate();
 
@@ -23,7 +22,7 @@ const Login = () => {
   const startGameClick = (event) => {
     event.preventDefault();
     if (user1.trim().length !== 0 && user2.trim().length !== 0) {
-      setIsOkUser(true);
+
       console.log("OK - No empty");
       navigate("/Cardgame");
     } else {
